@@ -1,0 +1,63 @@
+<h4 class="text-center">Thông tin học sinh</h4>
+
+<form #form="ngForm" autocomplete="off" (submit)="onSubmit(form)">
+
+    <input type="hidden" name="MaHocSinh" #MaHocSinh="ngModel" [(ngModel)]="formData.MaHocSinh" class="form-control">
+    <input type="hidden" name="MaLop" #MaLop="ngModel" [(ngModel)]="formData.MaLop" class="form-control">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Tên Học Sinh</label>
+                <input type="text" name="HoTen" #HoTen="ngModel" [(ngModel)]="formData.HoTen" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Ngày Sinh</label>
+                <input type="date" name="NgaySinh" #NgaySinh="ngModel" [(ngModel)]="formData.NgaySinh"
+                    class="form-control">
+            </div>
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="form-group">
+                <label> Giới Tính</label>
+                <select name="GioiTinh" #GioiTinh="ngModel" [(ngModel)]="formData.GioiTinh" class="form-control">
+                    <option value="0"> -- Chọn giới tính -- </option>
+                    <option value="Nam"> Nam</option>
+                    <option value="Nữ"> Nữ</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Địa Chỉ</label>
+                <input type="text" name="DiaChi" #DiaChi="ngModel" [(ngModel)]="formData.DiaChi" class="form-control">
+            </div>
+
+        </div>
+
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="Email" #Email="ngModel" [(ngModel)]="formData.Email" class="form-control">
+            </div>
+
+
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-outline-primary form-control">Xác Nhận</button>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <button class="btn btn-outline-danger form-control" [mat-dialog-close]>Hủy Bỏ</button>
+            </div>
+        </div>
+
+    </div>
+
+
+</form>

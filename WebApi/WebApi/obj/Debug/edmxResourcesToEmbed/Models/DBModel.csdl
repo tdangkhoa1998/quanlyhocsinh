@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QL_HocSinhModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="BangDiem">
+    <Key>
+      <PropertyRef Name="MaBangDiem" />
+    </Key>
+    <Property Name="MaBangDiem" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MaLop" Type="Int32" />
+    <Property Name="MaMonHoc" Type="Int32" />
+    <Property Name="HocKy" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="Lop" Relationship="Self.FK_BangDiem_Lop" FromRole="BangDiem" ToRole="Lop" />
+    <NavigationProperty Name="MonHoc" Relationship="Self.FK_BangDiem_MonHoc" FromRole="BangDiem" ToRole="MonHoc" />
+    <NavigationProperty Name="CTBangDiems" Relationship="Self.FK_CTBangDiem_BangDiem" FromRole="BangDiem" ToRole="CTBangDiem" />
+  </EntityType>
+  <EntityType Name="CTBangDiem">
+    <Key>
+      <PropertyRef Name="MaCTBangDiem" />
+    </Key>
+    <Property Name="MaCTBangDiem" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MaHocSinh" Type="Int32" />
+    <Property Name="Diem15" Type="Double" />
+    <Property Name="Diem1Tiet" Type="Double" />
+    <Property Name="DiemTB" Type="Double" />
+    <Property Name="MaBangDiem" Type="Int32" />
+    <NavigationProperty Name="BangDiem" Relationship="Self.FK_CTBangDiem_BangDiem" FromRole="CTBangDiem" ToRole="BangDiem" />
+    <NavigationProperty Name="HocSinh" Relationship="Self.FK_CTBangDiem_HocSinh" FromRole="CTBangDiem" ToRole="HocSinh" />
+  </EntityType>
+  <EntityType Name="HocSinh">
+    <Key>
+      <PropertyRef Name="MaHocSinh" />
+    </Key>
+    <Property Name="MaHocSinh" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HoTen" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+    <Property Name="GioiTinh" Type="Boolean" />
+    <Property Name="NgaySinh" Type="DateTime" Precision="0" />
+    <Property Name="DiaChi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TBHKI" Type="Double" />
+    <Property Name="TBHK2" Type="Double" />
+    <NavigationProperty Name="CTBangDiems" Relationship="Self.FK_CTBangDiem_HocSinh" FromRole="HocSinh" ToRole="CTBangDiem" />
+  </EntityType>
+  <EntityType Name="Lop">
+    <Key>
+      <PropertyRef Name="MaLop" />
+    </Key>
+    <Property Name="MaLop" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenLop" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="SiSo" Type="Int32" />
+    <NavigationProperty Name="BangDiems" Relationship="Self.FK_BangDiem_Lop" FromRole="Lop" ToRole="BangDiem" />
+  </EntityType>
+  <EntityType Name="MonHoc">
+    <Key>
+      <PropertyRef Name="MaMonHoc" />
+    </Key>
+    <Property Name="MaMonHoc" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenMonHoc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="BangDiems" Relationship="Self.FK_BangDiem_MonHoc" FromRole="MonHoc" ToRole="BangDiem" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="ThamSo">
+    <Key>
+      <PropertyRef Name="MaThamSo" />
+    </Key>
+    <Property Name="MaThamSo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenThamSo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="GiaTri" Type="Double" />
+  </EntityType>
+  <Association Name="FK_BangDiem_Lop">
+    <End Role="Lop" Type="Self.Lop" Multiplicity="0..1" />
+    <End Role="BangDiem" Type="Self.BangDiem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lop">
+        <PropertyRef Name="MaLop" />
+      </Principal>
+      <Dependent Role="BangDiem">
+        <PropertyRef Name="MaLop" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BangDiem_MonHoc">
+    <End Role="MonHoc" Type="Self.MonHoc" Multiplicity="0..1" />
+    <End Role="BangDiem" Type="Self.BangDiem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MonHoc">
+        <PropertyRef Name="MaMonHoc" />
+      </Principal>
+      <Dependent Role="BangDiem">
+        <PropertyRef Name="MaMonHoc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CTBangDiem_BangDiem">
+    <End Role="BangDiem" Type="Self.BangDiem" Multiplicity="0..1" />
+    <End Role="CTBangDiem" Type="Self.CTBangDiem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BangDiem">
+        <PropertyRef Name="MaBangDiem" />
+      </Principal>
+      <Dependent Role="CTBangDiem">
+        <PropertyRef Name="MaBangDiem" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CTBangDiem_HocSinh">
+    <End Role="HocSinh" Type="Self.HocSinh" Multiplicity="0..1" />
+    <End Role="CTBangDiem" Type="Self.CTBangDiem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HocSinh">
+        <PropertyRef Name="MaHocSinh" />
+      </Principal>
+      <Dependent Role="CTBangDiem">
+        <PropertyRef Name="MaHocSinh" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QLHocSinhs" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="BangDiems" EntityType="Self.BangDiem" />
+    <EntitySet Name="CTBangDiems" EntityType="Self.CTBangDiem" />
+    <EntitySet Name="HocSinhs" EntityType="Self.HocSinh" />
+    <EntitySet Name="Lops" EntityType="Self.Lop" />
+    <EntitySet Name="MonHocs" EntityType="Self.MonHoc" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="ThamSoes" EntityType="Self.ThamSo" />
+    <AssociationSet Name="FK_BangDiem_Lop" Association="Self.FK_BangDiem_Lop">
+      <End Role="Lop" EntitySet="Lops" />
+      <End Role="BangDiem" EntitySet="BangDiems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BangDiem_MonHoc" Association="Self.FK_BangDiem_MonHoc">
+      <End Role="MonHoc" EntitySet="MonHocs" />
+      <End Role="BangDiem" EntitySet="BangDiems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CTBangDiem_BangDiem" Association="Self.FK_CTBangDiem_BangDiem">
+      <End Role="BangDiem" EntitySet="BangDiems" />
+      <End Role="CTBangDiem" EntitySet="CTBangDiems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CTBangDiem_HocSinh" Association="Self.FK_CTBangDiem_HocSinh">
+      <End Role="HocSinh" EntitySet="HocSinhs" />
+      <End Role="CTBangDiem" EntitySet="CTBangDiems" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,55 @@
+<h4 class="text-center">Thông tin điểm của học sinh</h4>
+
+<form #form="ngForm" autocomplete="off" (submit)="onSubmit(form)">
+
+    <input type="hidden" name="MaCTDiem" #MaCTDiem="ngModel" [(ngModel)]="formData.MaCTDiem" class="form-control">
+    <input type="hidden" name="MaDiem" #MaDiem="ngModel" [(ngModel)]="formData.MaDiem" class="form-control">
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Tên Học Sinh</label>
+                <select name="MaHocSinh" #MaHocSinh="ngModel" [(ngModel)]="formData.MaHocSinh" class="form-control">
+                    <option value="0"> -- Chọn Học Sinh -- </option>
+                    <option *ngFor="let item of bangdiemService.hocsintList" value="{{item.MaHocSinh}}">
+                        {{item.HoTen}}
+                    </option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Điểm 15'</label>
+                <input type="number" name="Diem15Phut" #Diem15Phut="ngModel" [(ngModel)]="formData.Diem15Phut"
+                    class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Điểm 1 tiết</label>
+                <input type="number" name="Diem1Tiet" #Diem1Tiet="ngModel" [(ngModel)]="formData.Diem1Tiet"
+                    class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Điểm TB</label>
+                <input type="number" readonly name="DiemTB" #DiemTB="ngModel" [(ngModel)]="formData.DiemTB"
+                    class="form-control">
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-outline-primary form-control">Xác Nhận</button>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <button class="btn btn-outline-danger form-control" [mat-dialog-close]>Hủy Bỏ</button>
+            </div>
+        </div>
+
+    </div>
+
+
+</form>

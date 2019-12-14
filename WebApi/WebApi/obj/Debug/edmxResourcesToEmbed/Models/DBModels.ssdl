@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HocSinhModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="CTDiem">
+    <Key>
+      <PropertyRef Name="MaCTDiem" />
+    </Key>
+    <Property Name="MaCTDiem" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaDiem" Type="int" />
+    <Property Name="Diem15Phut" Type="float" />
+    <Property Name="Diem1Tiet" Type="float" />
+    <Property Name="DiemTB" Type="float" />
+  </EntityType>
+  <EntityType Name="Diem">
+    <Key>
+      <PropertyRef Name="MaDiem" />
+    </Key>
+    <Property Name="MaDiem" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaHocSinh" Type="int" />
+    <Property Name="MaHocKy" Type="int" />
+    <Property Name="MaMon" Type="int" />
+    <Property Name="DiemTB" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="HocKy">
+    <Key>
+      <PropertyRef Name="MaHocKy" />
+    </Key>
+    <Property Name="MaHocKy" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenHocKy" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="HocSinh">
+    <Key>
+      <PropertyRef Name="MaHocSinh" />
+    </Key>
+    <Property Name="MaHocSinh" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="HoTen" Type="nvarchar" MaxLength="100" />
+    <Property Name="NgaySinh" Type="varchar" MaxLength="50" />
+    <Property Name="GioiTinh" Type="nvarchar" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" />
+    <Property Name="DiaChi" Type="nvarchar" MaxLength="50" />
+    <Property Name="MaLop" Type="int" />
+  </EntityType>
+  <EntityType Name="LopHoc">
+    <Key>
+      <PropertyRef Name="MaLop" />
+    </Key>
+    <Property Name="MaLop" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenLop" Type="nvarchar" MaxLength="50" />
+    <Property Name="SiSo" Type="int" />
+  </EntityType>
+  <EntityType Name="MonHoc">
+    <Key>
+      <PropertyRef Name="MaMonHoc" />
+    </Key>
+    <Property Name="MaMonHoc" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenMonHoc" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_CTDiem_Diem">
+    <End Role="Diem" Type="Self.Diem" Multiplicity="0..1" />
+    <End Role="CTDiem" Type="Self.CTDiem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Diem">
+        <PropertyRef Name="MaDiem" />
+      </Principal>
+      <Dependent Role="CTDiem">
+        <PropertyRef Name="MaDiem" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Diem_HocKy">
+    <End Role="HocKy" Type="Self.HocKy" Multiplicity="0..1" />
+    <End Role="Diem" Type="Self.Diem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HocKy">
+        <PropertyRef Name="MaHocKy" />
+      </Principal>
+      <Dependent Role="Diem">
+        <PropertyRef Name="MaHocKy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Diem_HocSinh">
+    <End Role="HocSinh" Type="Self.HocSinh" Multiplicity="0..1" />
+    <End Role="Diem" Type="Self.Diem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HocSinh">
+        <PropertyRef Name="MaHocSinh" />
+      </Principal>
+      <Dependent Role="Diem">
+        <PropertyRef Name="MaHocSinh" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Diem_MonHoc">
+    <End Role="MonHoc" Type="Self.MonHoc" Multiplicity="0..1" />
+    <End Role="Diem" Type="Self.Diem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MonHoc">
+        <PropertyRef Name="MaMonHoc" />
+      </Principal>
+      <Dependent Role="Diem">
+        <PropertyRef Name="MaMon" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HocSinh_LopHoc">
+    <End Role="LopHoc" Type="Self.LopHoc" Multiplicity="0..1" />
+    <End Role="HocSinh" Type="Self.HocSinh" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LopHoc">
+        <PropertyRef Name="MaLop" />
+      </Principal>
+      <Dependent Role="HocSinh">
+        <PropertyRef Name="MaLop" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="HocSinhModelStoreContainer">
+    <EntitySet Name="CTDiem" EntityType="Self.CTDiem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Diem" EntityType="Self.Diem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HocKy" EntityType="Self.HocKy" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HocSinh" EntityType="Self.HocSinh" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LopHoc" EntityType="Self.LopHoc" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MonHoc" EntityType="Self.MonHoc" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_CTDiem_Diem" Association="Self.FK_CTDiem_Diem">
+      <End Role="Diem" EntitySet="Diem" />
+      <End Role="CTDiem" EntitySet="CTDiem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Diem_HocKy" Association="Self.FK_Diem_HocKy">
+      <End Role="HocKy" EntitySet="HocKy" />
+      <End Role="Diem" EntitySet="Diem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Diem_HocSinh" Association="Self.FK_Diem_HocSinh">
+      <End Role="HocSinh" EntitySet="HocSinh" />
+      <End Role="Diem" EntitySet="Diem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Diem_MonHoc" Association="Self.FK_Diem_MonHoc">
+      <End Role="MonHoc" EntitySet="MonHoc" />
+      <End Role="Diem" EntitySet="Diem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HocSinh_LopHoc" Association="Self.FK_HocSinh_LopHoc">
+      <End Role="LopHoc" EntitySet="LopHoc" />
+      <End Role="HocSinh" EntitySet="HocSinh" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

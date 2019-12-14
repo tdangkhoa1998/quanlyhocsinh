@@ -1,0 +1,95 @@
+<div class="card">
+    <div class="card-header">
+        <h4 class="text-center">Chi Tiết Lớp Học</h4>
+    </div>
+    <div class="card-body">
+
+        <form #form="ngForm" autocomplete="off" (submit)="onSubmit(form)">
+
+            <input type="hidden" name="MaLop" #MaLop="ngModel" [(ngModel)]="lophocService.formData.MaLop"
+                class="form-control">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Tên Lớp Học</label>
+                        <input type="text" readonly name="TenLop" #TenLop="ngModel"
+                            [(ngModel)]="lophocService.formData.TenLop" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Sỉ Số</label>
+                        <input type="text" readonly name="SiSo" #SiSo="ngModel"
+                            [(ngModel)]="lophocService.formData.SiSo" class="form-control">
+                    </div>
+                </div>
+
+                <hr class="mb-15">
+
+                <div class="col-md-12">
+                    <table class="table table-boderless">
+
+                        <thead class="thead-light">
+                            <th>STT</th>
+                            <th>Họ Tên</th>
+                            <th>Giới Tính</th>
+                            <th>Chức Năng</th>
+                            <th>
+                                <a class="btn btn-outline-success"
+                                    (click)="AddOrEditHocSinh(null,lophocService.formData.MaLop)">
+                                    <i class="fa fa-plus"></i>
+                                    Thêm Học Sinh
+                                </a>
+                            </th>
+                        </thead>
+
+                        <tbody>
+
+                            <tr *ngIf="lophocService.hocsinhList.length==0"
+                                [class.text-danger]="!isValid && lophocService.hocsinhList.length==0">
+                                <td class="font-italic text-center" colspan="7">
+                                    Chưa có học sinh nào
+                                </td>
+                            </tr>
+
+                            <tr *ngFor="let item of lophocService.hocsinhList;let i = index;">
+                                <td>{{i + 1}}</td>
+                                <td>{{item.HoTen}}</td>
+                                <td>{{item.GioiTinh}}</td>
+                                <td>
+                                    <a class="btn btn-sm btn-info text-white"
+                                        (click)="AddOrEditHocSinh(i,lophocService.formData.MaLop)">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    <a class="btn btn-sm btn-danger text-white ml-1"
+                                        (click)="OnDeleteLopHoc(item.MaHocSinh,i)">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+                </div>
+
+                <hr>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-outline-primary form-control">Xác Nhận</button>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <button routerLink="/danhsachlop" class="btn btn-outline-danger form-control">Hủy Bỏ</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+</div>

@@ -1,0 +1,116 @@
+<div class="card">
+    <div class="card-header">
+        <h4 class="text-center">Chi Tiết Bảng Điểm</h4>
+    </div>
+    <div class="card-body">
+
+        <form #form="ngForm" autocomplete="off" (submit)="onSubmit(form)">
+
+            <input type="hidden" name="MaDiem" #MaDiem="ngModel" [(ngModel)]="bangdiemService.formData.MaDiem"
+                class="form-control">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Tên Lớp Học</label>
+                        <select name="MaLop" #MaLop="ngModel" [(ngModel)]="bangdiemService.formData.MaLop"
+                            class="form-control">
+                            <option value="0"> -- Chọn Lớp -- </option>
+                            <option *ngFor="let item of bangdiemService.lophocList" value="{{item.MaLop}}">
+                                {{item.TenLop}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Học Kỳ</label>
+                        <select name="MaHocKy" #MaHocKy="ngModel" [(ngModel)]="bangdiemService.formData.MaHocKy"
+                            class="form-control">
+                            <option value="0"> -- Chọn Học Kỳ -- </option>
+                            <option *ngFor="let item of bangdiemService.hockyList" value="{{item.MaHocKy}}">
+                                {{item.TenHocKy}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Tên Môn Học</label>
+                        <select name="MaMon" #MaMon="ngModel" [(ngModel)]="bangdiemService.formData.MaMon"
+                            class="form-control" class="form-control">
+                            <option value="0"> -- Chọn Môn Học -- </option>
+                            <option *ngFor="let item of bangdiemService.monhocList" value="{{item.MaMonHoc}}">
+                                {{item.TenMonHoc}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <hr class="mb-15">
+
+                <div class="col-md-12">
+                    <table class="table table-boderless">
+
+                        <thead class="thead-light">
+                            <th>STT</th>
+                            <th>Họ Tên</th>
+                            <th>Điểm 15'</th>
+                            <th>Điểm 1 Tiết</th>
+                            <th>Điểm TB</th>
+                            <th>Chức Năng</th>
+                            <th>
+                                <a class="btn btn-outline-success"
+                                    (click)="AddOrEditCTDiem(null,bangdiemService.formData.MaDiem)">
+                                    <i class="fa fa-plus"></i>
+                                    Thêm Điểm Học Sinh
+                                </a>
+                            </th>
+                        </thead>
+
+                        <tbody>
+
+                            <tr *ngIf="bangdiemService.ctBangDiemList.length==0"
+                                [class.text-danger]="!isValid && bangdiemService.ctBangDiemList.length==0">
+                                <td class="font-italic text-center" colspan="7">
+                                    Chưa thêm điểm cho học sinh
+                                </td>
+                            </tr>
+
+                            <tr *ngFor="let item of bangdiemService.ctBangDiemList;let i = index;">
+                                <td>{{i + 1}}</td>
+                                <td>{{item.TenHocSinh}}</td>
+                                <td>{{item.Diem15Phut}}</td>
+                                <td>{{item.Diem1Tiet}}</td>
+                                <td>{{item.DiemTB}}</td>
+                                <td>
+                                    <a class="btn btn-sm btn-info text-white"
+                                        (click)="AddOrEditCTDiem(i,bangdiemService.formData.MaDiem)">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    <a class="btn btn-sm btn-danger text-white ml-1"
+                                        (click)="OnDeleteBangDiem(item.MaCTDiem,i)">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+                </div>
+
+                <hr>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-outline-primary form-control">Xác Nhận</button>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <button routerLink="/bangdiem" class="btn btn-outline-danger form-control">Hủy Bỏ</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+</div>

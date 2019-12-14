@@ -1,0 +1,19 @@
+<form #form="ngForm" autocomplete="off" (submit)="onSubmit(form)">
+
+    <input type="hidden" class="form-control" name="MaMonHoc" #MaMonHoc="ngModel"
+        [(ngModel)]="monhocService.formData.MaMonHoc">
+
+    <div class="form-group">
+        <label> Tên Môn Học </label>
+        <input type="text" class="form-control" name="TenMonHoc" #TenMonHoc="ngModel"
+            [(ngModel)]="monhocService.formData.TenMonHoc">
+    </div>
+
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-outline-primary">
+            Thêm Môn Học
+        </button>
+    </div>
+
+</form>
